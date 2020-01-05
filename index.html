@@ -63,6 +63,9 @@
 				var moveBackward = false;
 				var moveLeft = false;
 				var moveRight = false;
+				var rotateY = false;
+				var rotateX = false;
+				var rotateZ = false;
 				var canJump = false;
 
 				var prevTime = performance.now();
@@ -117,21 +120,33 @@
 							switch ( event.keyCode ) {
 
 								case 38: // up
+									rotateY = true;
+									break;
+
 								case 87: // w
 									moveForward = true;
 									break;
 
 								case 37: // left
+
+									break;
+
 								case 65: // a
 									moveLeft = true;
 									break;
 
 								case 40: // down
+									rotateX = true;
+									break;
+
 								case 83: // s
 									moveBackward = true;
 									break;
 
 								case 39: // right
+									rotateZ = true;
+									break;
+
 								case 68: // d
 									moveRight = true;
 									break;
@@ -150,21 +165,33 @@
 							switch ( event.keyCode ) {
 
 								case 38: // up
+									rotateY = false;
+									break;
+
 								case 87: // w
 									moveForward = false;
 									break;
 
 								case 37: // left
+
+									break;
+
 								case 65: // a
 									moveLeft = false;
 									break;
 
 								case 40: // down
+									rotateX = false;
+									break;
+
 								case 83: // s
 									moveBackward = false;
 									break;
 
 								case 39: // right
+									rotateZ = false;
+									break;
+
 								case 68: // d
 									moveRight = false;
 									break;
@@ -325,6 +352,8 @@
 								// gun.rotation.set(new THREE.Vector3( 0, 0, Math.PI / 2));
 								gun.scale.set(50,50,50);
 								ms_Camera.add( gun );
+
+								gun.rotation.z = 4.609999999999946;
 							},
 
 							// onProgress callback
@@ -402,10 +431,6 @@
 					requestAnimationFrame( render );
 					if ( ms_Controls.isLocked === true ) {
 
-						gun.rotation.x += 0.01;
-						gun.rotation.y += 0.01;
-						gun.rotation.z += 0.01;
-
 						var time = performance.now();
 						var delta = ( time - prevTime ) / 1000;
 
@@ -420,6 +445,18 @@
 
 						if ( moveForward || moveBackward ) velocity.z -= direction.z * 400.0 * delta;
 						if ( moveLeft || moveRight ) velocity.x -= direction.x * 400.0 * delta;
+
+						// if ( rotateX ) { 
+						// 	gun.rotation.x += 0.01;
+						// }
+
+						// if ( rotateY ) { 
+						// 	gun.rotation.y += 0.01;
+						// }
+
+						// if ( rotateZ ) { 
+						// 	gun.rotation.z += 0.01;
+						// }
 
 						ms_Controls.getObject().translateX( velocity.x * delta );
 						ms_Controls.getObject().position.y += ( velocity.y * delta ); // new behavior
