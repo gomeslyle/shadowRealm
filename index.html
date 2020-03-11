@@ -67,6 +67,7 @@
 				var rotateX = false;
 				var rotateZ = false;
 				var canJump = false;
+				var printReticleCoordinates = false;
 
 				var prevTime = performance.now();
 				var velocity = new THREE.Vector3();
@@ -176,6 +177,10 @@
 									canJump = false;
 									break;
 
+								case 13: // enter
+									printReticleCoordinates = true;
+									break;
+
 							}
 
 						};
@@ -214,6 +219,10 @@
 
 								case 68: // d
 									moveRight = false;
+									break;
+
+								case 13: // enter
+									printReticleCoordinates = false;
 									break;
 
 							}
@@ -377,7 +386,7 @@
 
 								reticle.position.x = gun.position.x - 25;
 								reticle.position.y = gun.position.y + 50;
-								reticle.position.z = gun.position.z;
+								reticle.position.z = -612;
 							},
 
 							// onProgress callback
@@ -471,17 +480,22 @@
 						if ( moveLeft || moveRight ) velocity.x -= direction.x * 400.0 * delta;
 
 						// if ( rotateX ) { 
-						// 	reticle.position.x += 0.01;
+						// 	reticle.position.x += 1;
 						// }
 
 						// if ( rotateY ) { 
-						// 	reticle.position.y += 0.01;
+						// 	reticle.position.y += 1;
 						// }
 
-						if ( rotateZ ) { 
-							reticle.position.z -= 0.1;
-							console.log(reticle.position.z.toString());
-						}
+						// if ( rotateZ ) { 
+						// 	reticle.position.z -= 1;
+						// }
+
+						// if ( printReticleCoordinates ) {
+						// 	console.log(reticle.position.x.toString());
+						// 	console.log(reticle.position.y.toString());
+						// 	console.log(reticle.position.z.toString());
+						// }
 
 						ms_Controls.getObject().translateX( velocity.x * delta );
 						ms_Controls.getObject().position.y += ( velocity.y * delta ); // new behavior
